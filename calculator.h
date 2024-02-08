@@ -11,11 +11,12 @@ class Calculator
 {
 private:
     std::list<std::shared_ptr<Token>> tokens_;
-    Analyzer anlz;
+    Analyzer anlz_;
 
 public:
     Calculator(std::string expression);
     Calculator(std::list<std::shared_ptr<Token>> tokens);
+    Calculator(std::list<std::shared_ptr<Token>> tokens, Analyzer&& anlz);
 
     double calculateExpression();
 

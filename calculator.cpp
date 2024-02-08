@@ -5,22 +5,65 @@
 #include "converter/converter.h"
 
 Calculator::Calculator(std::list<std::shared_ptr<Token>> tokens)
-    : anlz{tokens}, tokens_{tokens} {}
+    : anlz_{tokens}, tokens_{tokens} {}
+
+Calculator::Calculator(std::list<std::shared_ptr<Token>> tokens,
+        Analyzer&& anlz)
+    : anlz_{anlz}, tokens_{tokens} {}
 
 Calculator::Calculator(std::string expression)
-    : anlz{}
+    : anlz_{}
 {
     tokens_ = Converter::convert(expression);
-    anlz = Analyzer(tokens_);
+    anlz_ = Analyzer(tokens_);
 }
 
 double Calculator::calculateExpression()
 {
-    // идя от самого большого приоритета
-    // пока остались 
-    // вызвать рассчет -1 найденный +1
-    // удалить от -1 найденный +1. добавить на место -1 новый токен с рассчитанным значением
-    auto maxPrioritet = anlz.getHighPriority();
+    // если есть скобка то создать класс с выражением в этой скобке
+    // чтобы найти конец нужно идти вправо от скобки создать счетчик скобок = 1
+    // если встретилась левая, то +1 к счетчику, если правая то -1.
+    // когда в счетчике будет ноль то значит это итератор конца элемента
+
+    auto itLeftBracket = std::find_if(tokens_.begin(), tokens_.end(), 
+            [](auto& i){
+            return (i->isBracket());
+            });
+
+    // рекурсинвое решение сначало того, что в скобках, и замена подскобочного выражения на результат
+    while (itLeftBracket != tokens_.end())
+    {
+        auto itRigthBracket = std::next(itLeftBracket, 1);
+        
+        // поиск итератора правой скобки
+        auto count = 1;
+        while (count != 0)
+        {
+            if ((*itRigthBracket)->isBracket())
+            {
+                count += (*itRigthBracket)->isLeftBracket() ? 1 : -1;
+            }
+            ++itRigthBracket;
+        }
+        std::list<std::shared_ptr<Token>> container(std::next(itLeftBracket, 1), std::next(itRigthBracket, -1));
+        Analyzer innerAnlz(container);
+        anlz_ -= innerAnlz;
+        Calculator innerCalculator(std::move(container), std::move(innerAnlz));
+        std::shared_ptr<Token> newToken = std::make_shared<TokenNumber>(innerCalculator.calculateExpression());
+        tokens_.insert(itLeftBracket, newToken);
+        tokens_.erase(itLeftBracket, itRigthBracket);
+        itLeftBracket = std::find_if(tokens_.begin(), tokens_.end(), 
+                    [](auto& i){
+                    return (i->isBracket());
+                    });
+    }
+
+    // базовый случай 
+    if (tokens_.size() == 1)
+    {
+        return (*tokens_.begin())->getNumber();
+    }
+    auto maxPrioritet = anlz_.getHighPriority();
     do
     {
         auto itSign = std::find_if(tokens_.begin(), tokens_.end(), 
@@ -46,7 +89,7 @@ double Calculator::calculateExpression()
             (calculateOperation(leftValue, rightValue, sign));
         tokens_.insert(itLeftValue, tokenResult);
         tokens_.erase(itLeftValue, ++itRightValue);
-        maxPrioritet = anlz.getHighPriority();
+        maxPrioritet = anlz_.getHighPriority();
     } while (maxPrioritet != -1);
     if (tokens_.size() != 1)
     {
