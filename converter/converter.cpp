@@ -4,6 +4,7 @@
 #include "../sign/signs_information.h"
 #include "../token/token_number.h"
 #include "../token/token_sign.h"
+#include "../token/token_bracket.h"
 
 std::list<std::shared_ptr<Token>> Converter::convert(std::string& expression)
 {
@@ -27,19 +28,20 @@ std::list<std::shared_ptr<Token>> Converter::convert(std::string& expression)
 
     while (stream >> token)
     {
-        // знак 
+        // add token-number
         if(isDouble(token))
         {
             tokens.emplace_back(std::make_shared<TokenNumber>(token));
         }
+        // add token-sign
         else if (isSign(token))
         {
-            // add token sign
             tokens.emplace_back(std::make_shared<TokenSign>(token));
         }
+        // add token-bracket
         else if (isBracket(token))
         {
-            // add token bracket
+            tokens.emplace_back(std::make_shared<TokenBracket>(token));
         }
         else
         {

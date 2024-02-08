@@ -58,4 +58,5 @@ target_link_libraries(${PROJECT_NAME}
     token_base
     token_sign
     token_number
+    token_bracket
 )
