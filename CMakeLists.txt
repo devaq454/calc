@@ -22,6 +22,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC sign)
 target_link_directories(${PROJECT_NAME} PRIVATE sign)
 target_link_libraries(${PROJECT_NAME} 
     sign_base
+    sign_pow
     sign_plus 
     sign_minus
     sign_mul

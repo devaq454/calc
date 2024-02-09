@@ -9,6 +9,7 @@ std::unordered_map<std::string, int> SignsInformation::signsPriorities =
     {"-", 100},
     {"*", 101},
     {"/", 101},
+    {"**", 102},
 };
 
 int SignsInformation::getSignPriority(std::string sign)

@@ -5,7 +5,6 @@
 
 class SignPlus : public Sign
 {
-
 public:
     SignPlus();
     
