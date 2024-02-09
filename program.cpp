@@ -6,11 +6,6 @@
 #include "sign/sign_base.h"
 #include "sign/signs_pointers.h"
 #include "sign/signs_information.h"
-#include "token/token_sign.h"
-#include "token/token_number.h"
-#include "analyzer/analyzer.h"
-#include "validator/validator.h"
-#include "converter/converter.h"
 
 int main()
 {

@@ -14,6 +14,8 @@ include_directories(token)
 add_subdirectory(token)
 include_directories(analyzer)
 add_subdirectory(analyzer)
+include_directories(function)
+add_subdirectory(function)
 
 add_library(signs program.cpp)
 
@@ -50,6 +52,13 @@ target_include_directories(${PROJECT_NAME} PUBLIC analyzer)
 target_link_directories(${PROJECT_NAME} PRIVATE analyzer)
 target_link_libraries(${PROJECT_NAME} 
     analyzer
+)
+
+# function
+target_include_directories(${PROJECT_NAME} PUBLIC function)
+target_link_directories(${PROJECT_NAME} PRIVATE function)
+target_link_libraries(${PROJECT_NAME} 
+    function_base
 )
 
 # tokens
