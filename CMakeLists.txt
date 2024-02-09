@@ -59,6 +59,9 @@ target_include_directories(${PROJECT_NAME} PUBLIC function)
 target_link_directories(${PROJECT_NAME} PRIVATE function)
 target_link_libraries(${PROJECT_NAME} 
     function_base
+    function_sin
+    functions_information
+    functions_pointers
 )
 
 # tokens

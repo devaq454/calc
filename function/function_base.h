@@ -3,13 +3,13 @@
 
 #include <string>
 
-class FunctionBase
+class Function
 {
 private:
     std::string strFunction_;
 
 public:
-    FunctionBase(std::string func);
+    Function(std::string func);
 
     std::string getStrFunction();
 
