@@ -7,5 +7,5 @@ FunctionSin::FunctionSin()
 
 double FunctionSin::getResult(double value)
 {
-    return std::sin(value * 3.141592653589793238463 / 180);
+    return std::sin(value);
 }
