@@ -59,10 +59,36 @@ double Calculator::calculateExpression()
     }
 
     // базовый случай 
+    
+
+    auto itFunction = std::find_if(tokens_.begin(), tokens_.end(),
+            [](auto& i){
+                return i->isFunction();
+            });
+    while (itFunction != tokens_.end())
+    {
+        auto itValue = std::next(itFunction, 1);
+        auto value = (*(std::next(itFunction, 1)))->getNumber();
+        auto function = (*itFunction)->getFunction();
+        std::shared_ptr<Token> newToken = std::make_shared<TokenNumber>(
+                calculateFunction(value, function)
+                );
+        tokens_.insert(itFunction, newToken);
+        tokens_.erase(itFunction, std::next(itFunction, 2));
+        itFunction = std::find_if(tokens_.begin(), tokens_.end(),
+            [](auto& i){
+                return i->isFunction();
+            });
+    }
+
+    // если остался только один токен - число.
     if (tokens_.size() == 1)
     {
         return (*tokens_.begin())->getNumber();
     }
+
+
+    // рассчет знаков
     auto maxPrioritet = anlz_.getHighPriority();
     do
     {
@@ -104,4 +130,9 @@ double Calculator::calculateExpression()
 double Calculator::calculateOperation(double left, double right, std::shared_ptr<Sign> sign)
 {
     return sign->getResult(left, right);
+}
+
+double Calculator::calculateFunction(double value, std::shared_ptr<Function> funcction)
+{
+    return funcction->getResult(value);
 }

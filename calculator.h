@@ -21,6 +21,8 @@ public:
     double calculateExpression();
 
     double calculateOperation(double left, double right, std::shared_ptr<Sign> sign);
+
+    double calculateFunction(double value, std::shared_ptr<Function> function);
 };
 
 
