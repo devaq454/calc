@@ -18,6 +18,7 @@ public:
 
     std::shared_ptr<Sign> getSign() override;
     double getNumber() override;
+    std::shared_ptr<Function> getFunction() override;
 };
 
 

@@ -18,6 +18,7 @@ public:
 
     std::shared_ptr<Sign> getSign() override;
     bool isLeftBracket() override;
+    std::shared_ptr<Function> getFunction() override;
 };
 
 

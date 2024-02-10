@@ -72,4 +72,5 @@ target_link_libraries(${PROJECT_NAME}
     token_sign
     token_number
     token_bracket
+    token_function
 )

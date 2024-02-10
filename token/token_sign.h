@@ -18,6 +18,7 @@ public:
 
     double getNumber() override;
     bool isLeftBracket() override;
+    std::shared_ptr<Function> getFunction() override;
 };
 
 

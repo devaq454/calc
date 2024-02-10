@@ -1,7 +1,8 @@
 #include "token_base.h"
 
 Token::Token(std::string value)
-    : value_{std::move(value)}, isSign_{false}, isNumber_{false}, isBracket_{false} {}
+    : value_{std::move(value)}, 
+    isSign_{false}, isNumber_{false}, isBracket_{false}, isFunction_{false} {}
 
 std::string Token::getValue() { return value_; };
 
@@ -22,6 +23,10 @@ bool Token::isBracket()
 {
     return isBracket_;
 }
+bool Token::isFunction()
+{
+    return isFunction_;
+}
 
 void Token::setIsSign(bool isSign)
 {
@@ -35,4 +40,7 @@ void Token::setIsBracket(bool isBracket)
 {
     isBracket_ = isBracket;
 }
-
+void Token::setIsFunction(bool isFunction)
+{
+    isFunction_ = isFunction;
+}

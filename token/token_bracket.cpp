@@ -1,5 +1,6 @@
 #include "token_bracket.h"
 #include "../sign/sign_plus.h"
+#include "../function/function_sin.h"
 
 TokenBracket::TokenBracket(std::string bracket) 
     : Token(bracket), isLeftBracket_{bracket == "("}
@@ -36,4 +37,10 @@ double TokenBracket::getNumber()
     throw std::runtime_error("try to get number from token-bracket");
     // fictive
     return .0;
+}
+
+std::shared_ptr<Function> TokenBracket::getFunction()
+{
+    throw std::runtime_error("try to get function from token-bracket");
+    return std::shared_ptr<FunctionSin>();
 }

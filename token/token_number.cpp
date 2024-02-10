@@ -1,5 +1,6 @@
 #include "token_number.h"
 #include "../sign/sign_plus.h"
+#include "../function/function_sin.h"
 
 TokenNumber::TokenNumber(std::string number)
     : Token(number), number_{std::stod(number)}
@@ -36,4 +37,10 @@ std::shared_ptr<Sign> TokenNumber::getSign()
     throw std::runtime_error("try to get sign from token-number");
     // fictive
     return std::make_shared<SignPlus>();
+}
+
+std::shared_ptr<Function> TokenNumber::getFunction()
+{
+    throw std::runtime_error("try to get function from token-number");
+    return std::shared_ptr<FunctionSin>();
 }
