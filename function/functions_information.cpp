@@ -2,6 +2,7 @@
 
 std::unordered_set<std::string> FunctionsInformation::functions_ = {
     "sin",
+    "sqrt",
 };
 
 bool FunctionsInformation::isFunction(std::string function)
