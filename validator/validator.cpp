@@ -112,7 +112,6 @@ bool Validator::checkBrackets(std::string& string)
     auto leftOpen = 0;
     auto rightOpen = 0;
     auto i = string[0];
-    std::cout << "first" << std::endl;
     for (auto i : string)
     {
         if (std::string(1, i) == "(")
