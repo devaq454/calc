@@ -3,6 +3,7 @@
 #include <memory>
 #include "calculator.h"
 #include "converter/converter.h"
+#include "validator/validator.h"
 
 Calculator::Calculator(std::list<std::shared_ptr<Token>> tokens)
     : anlz_{tokens}, tokens_{tokens} {}
@@ -14,6 +15,7 @@ Calculator::Calculator(std::list<std::shared_ptr<Token>> tokens,
 Calculator::Calculator(std::string expression)
     : anlz_{}
 {
+    Validator::checkExpression(expression);
     tokens_ = Converter::convert(expression);
     anlz_ = Analyzer(tokens_);
 }

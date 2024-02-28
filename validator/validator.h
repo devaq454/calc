@@ -7,8 +7,8 @@
 class Validator
 {
 private:
-    bool checkSymbols(std::string& expression);
-    bool checkBrackets(std::string& expression);
+    static bool checkSymbols(std::string& expression);
+    static bool checkBrackets(std::string& expression);
 
 public:
     Validator() = delete;

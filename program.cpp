@@ -23,5 +23,6 @@ int main()
     std::cout << std::endl;
     Calculator calc(expression);
     std::cout << "the result of expression: " << expression<< " = " << calc.calculateExpression() << std::endl;
+
     return 0;
 }
