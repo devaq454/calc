@@ -63,7 +63,15 @@ bool Validator::checkSymbols(std::string& expression)
     }
 
     // first token can't be a sign
+    if (tokens.size() == 0)
+        return true;
     auto first = *(tokens.begin());
+    if (tokens.size() == 1)
+    {
+        if (first->isNumber())
+            return true;
+        throw std::runtime_error("sign or function can't be solo");
+    }
     if (first->isSign())
         throw std::runtime_error("sign { " + first->getValue() + " } without number left");
     // TODO it's too boring!!
