@@ -18,11 +18,24 @@ int main()
 
 
     std::string expression;
-    std::cout << "input expression to calc: ";
-    std::getline(std::cin, expression);
-    std::cout << std::endl;
-    Calculator calc(expression);
-    std::cout << "the result of expression: " << expression<< " = " << calc.calculateExpression() << std::endl;
+    std::cout << "input expression to calc:" << std::endl;
+    while (true)
+    {
+        std::cout << ">>> ";
+        std::getline(std::cin, expression);
+        if (expression == "q") 
+            return 0;
+        try
+        {
+            Calculator calc(expression);
+            auto result = calc.calculateExpression();
+            std::cout << result << std::endl;
+        }
+        catch (std::exception& e)
+        {
+            std::cout << "error: " << e.what() << std::endl;
+        }
+    }
 
     return 0;
 }
